@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  nginx:
+    build: .
+    ports:
+      - "80:80"
+    networks:
+      - shared
+    restart: unless-stopped
+
+networks:
+  shared:
+    external: true
+    name: shared
