@@ -1,7 +1,6 @@
-version: "3.8"
-
 services:
   nginx:
+    image: nginx-portainer:local
     build: .
     ports:
       - "80:80"

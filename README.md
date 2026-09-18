@@ -1,29 +1,55 @@
 # Nginx Portainer Stack
 
-Reverse proxy for local development services.
+Reverse proxy for local development services, used alongside a Portainer instance for container management.
 
-## Services
+This repo runs one container:
 
-| Path | Service | Port |
-|------|---------|------|
-| `/` | Welcome page (static) | - |
-| `/smart/` | Angular SPA | 8089 |
+| Service | Image                                          | Access           | Purpose       |
+| ------- | ---------------------------------------------- | ---------------- | ------------- |
+| nginx   | `nginx-portainer:local` (built from this repo) | http://localhost | Reverse proxy |
+
+Portainer is **not** part of this compose stack — it is already running on the machine (https://localhost:9443). Point Portainer at `/var/run/docker.sock` if you want it managing these containers.
+
+## Proxied Services
+
+Apps such as Smart, MailDev, etc. are deployed as their own containers and must be attached to the shared `shared` Docker network. nginx routes them by path:
+
+| Path        | Service                 | Port |
+| ----------- | ----------------------- | ---- |
+| `/`         | Welcome page (static)   | -    |
+| `/smart/`   | Angular SPA             | 8089 |
 | `/maildev/` | MailDev (email testing) | 1080 |
-| `/dummy/` | Dummy service | 8080 |
-
-All apps (Smart, MailDev, etc.) are deployed as their own containers and must be attached to the shared `shared` Docker network.
+| `/dummy/`   | Dummy service           | 8080 |
 
 ## Usage
 
 ```bash
 docker network create shared   # one-time
-docker compose up --build -d
+make build                     # build + tag the nginx image once
+make up                        # start services (nginx)
 ```
+
+The compose file declares both `build: .` and `image: nginx-portainer:local` for nginx. Running `make build` tags the image, so `docker compose up` simply references it afterwards — it only builds on the fly if the image is missing. Use `make rebuild` after editing `nginx.conf`.
+
+## Make Targets
+
+| Target         | Description                                |
+| -------------- | ------------------------------------------ |
+| `make build`   | Build + tag the nginx image once           |
+| `make up`      | Start all services                         |
+| `make rebuild` | Force-rebuild nginx and restart everything |
+| `make down`    | Stop and remove containers                 |
+| `make restart` | Restart containers                         |
+| `make logs`    | Tail logs                                  |
+| `make ps`      | Show running services                      |
+| `make pull`    | Pull prebuilt images                       |
+| `make push`    | Push the nginx image to a registry         |
 
 ## Adding a New Service
 
 1. Deploy the service separately, attached to the `shared` network
 2. Add a `location` block in `nginx.conf`:
+
    ```nginx
    location /new-service/ {
        proxy_pass http://new-service:PORT/;
@@ -36,7 +62,9 @@ docker compose up --build -d
        proxy_set_header X-Forwarded-Proto $scheme;
    }
    ```
-3. Rebuild nginx: `docker compose up --build nginx`
+
+3. Add a link in `index.html`
+4. Rebuild nginx: `make rebuild`
 
 ## Serving an Angular SPA through nginx
 
