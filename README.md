@@ -4,11 +4,11 @@ Reverse proxy for local development services, used alongside a Portainer instanc
 
 This repo runs one container:
 
-| Service | Image                                          | Access           | Purpose       |
-| ------- | ---------------------------------------------- | ---------------- | ------------- |
-| nginx   | `nginx-portainer:local` (built from this repo) | http://localhost | Reverse proxy |
+| Service | Image                                          | Access             | Purpose       |
+| ------- | ---------------------------------------------- | ------------------ | ------------- |
+| nginx   | `nginx-portainer:local` (built from this repo) | <http://localhost> | Reverse proxy |
 
-Portainer is **not** part of this compose stack — it is already running on the machine (https://localhost:9443). Point Portainer at `/var/run/docker.sock` if you want it managing these containers.
+Portainer is **not** part of this compose stack — it is already running on the machine (<https://localhost:9443>). Point Portainer at `/var/run/docker.sock` if you want it managing these containers.
 
 ## Proxied Services
 
