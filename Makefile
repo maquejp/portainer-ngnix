@@ -1,8 +1,11 @@
 IMAGE ?= nginx-portainer
-TAG ?= local
+TAG ?= latest
+IMAGES_DIR ?= images
+STAMP ?= $(shell date +%Y%m%d-%H%M%S)
+ARCHIVE ?= $(IMAGES_DIR)/$(IMAGE)-$(TAG)-$(STAMP).tar
 COMPOSE ?= docker compose
 
-.PHONY: help build up rebuild down restart logs ps pull push
+.PHONY: help build up rebuild down restart logs ps pull push save load
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
@@ -33,3 +36,11 @@ pull: ## Pull prebuilt images
 
 push: ## Push nginx image to a registry (override IMAGE/TAG if needed)
 	docker push $(IMAGE):$(TAG)
+
+save: build ## Export image to images/nginx-portainer-latest-<timestamp>.tar
+	@mkdir -p $(IMAGES_DIR)
+	docker save -o $(ARCHIVE) $(IMAGE):$(TAG)
+	@echo "Saved: $(ARCHIVE)"
+
+load: ## Load the image from the latest tar in the images folder
+	docker load -i $(shell ls -t $(IMAGES_DIR)/$(IMAGE)-$(TAG)-*.tar | head -n1)

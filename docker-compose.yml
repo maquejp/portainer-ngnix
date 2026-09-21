@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx-portainer:local
+    image: nginx-portainer:latest
     build: .
     ports:
       - "80:80"

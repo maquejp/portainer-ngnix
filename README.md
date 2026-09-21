@@ -6,7 +6,7 @@ This repo runs one container:
 
 | Service | Image                                          | Access             | Purpose       |
 | ------- | ---------------------------------------------- | ------------------ | ------------- |
-| nginx   | `nginx-portainer:local` (built from this repo) | <http://localhost> | Reverse proxy |
+| nginx   | `nginx-portainer:latest` (built from this repo) | <http://localhost> | Reverse proxy |
 
 Portainer is **not** part of this compose stack — it is already running on the machine (<https://localhost:9443>). Point Portainer at `/var/run/docker.sock` if you want it managing these containers.
 
@@ -29,7 +29,7 @@ make build                     # build + tag the nginx image once
 make up                        # start services (nginx)
 ```
 
-The compose file declares both `build: .` and `image: nginx-portainer:local` for nginx. Running `make build` tags the image, so `docker compose up` simply references it afterwards — it only builds on the fly if the image is missing. Use `make rebuild` after editing `nginx.conf`.
+The compose file declares both `build: .` and `image: nginx-portainer:latest` for nginx. Running `make build` tags the image, so `docker compose up` simply references it afterwards — it only builds on the fly if the image is missing. Use `make rebuild` after editing `nginx.conf`.
 
 ## Make Targets
 
@@ -44,6 +44,22 @@ The compose file declares both `build: .` and `image: nginx-portainer:local` for
 | `make ps`      | Show running services                      |
 | `make pull`    | Pull prebuilt images                       |
 | `make push`    | Push the nginx image to a registry         |
+| `make save`    | Export image to `images/nginx-portainer-latest-<timestamp>.tar` |
+| `make load`    | Load image from the latest tar in the images folder      |
+
+## Moving the Image to Another Server (Portainer)
+
+`make save` first builds the image (it depends on `make build`), then exports it to `images/nginx-portainer-latest-<timestamp>.tar`. Each run keeps its own timestamped archive, so you can save multiple versions:
+
+```bash
+make save
+```
+
+Copy that file to the target machine, then in Portainer go to **Images → Load** → select **Load image from file** and upload it. Afterwards you can create a container from the `nginx-portainer:latest` image. To restore it locally instead:
+
+```bash
+make load
+```
 
 ## Adding a New Service
 
