@@ -55,6 +55,8 @@ make up                        # start services (nginx)
 
 The compose file declares both `build: .` and `image: nginx-portainer:latest` for nginx. Running `make build` tags the image, so `docker compose up` simply references it afterwards — it only builds on the fly if the image is missing. Use `make rebuild` after editing `nginx.conf`.
 
+When deploying this stack **through Portainer**, remove the `build: .` line — Portainer stacks do not support the `build` directive. Portainer uses the already-pushed `nginx-portainer:latest` image (see `make push` / the "Moving the Image to Another Server" section).
+
 ## Make Targets
 
 | Target         | Description                                |
