@@ -5,10 +5,10 @@ services:
     ports:
       - "80:80"
     networks:
-      - shared
+      - local-network
     restart: unless-stopped
 
 networks:
-  shared:
+  local-network:
     external: true
-    name: shared
+    name: local-network

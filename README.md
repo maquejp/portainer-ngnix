@@ -12,19 +12,43 @@ Portainer is **not** part of this compose stack — it is already running on the
 
 ## Proxied Services
 
-Apps such as Smart, MailDev, etc. are deployed as their own containers and must be attached to the shared `shared` Docker network. nginx routes them by path:
+Apps such as Smart, MailDev, etc. are deployed as their own containers and must be attached to the `local-network` Docker network. nginx routes them by path:
 
 | Path        | Service                 | Port |
 | ----------- | ----------------------- | ---- |
 | `/`         | Welcome page (static)   | -    |
 | `/smart/`   | Angular SPA             | 8089 |
-| `/maildev/` | MailDev (email testing) | 1080 |
+| `/maildev/` | MailDev (email testing) | 80    |
 | `/dummy/`   | Dummy service           | 8080 |
+
+## MailDev Configuration
+
+MailDev runs as its own container (e.g. deployed through Portainer) on the same Docker network as nginx. The mapping you see in Portainer only applies to host access — nginx uses the container-internal port instead.
+
+- A Portainer mapping like `8085:80` means host port **8085** maps to container port **80**.
+- `http://localhost:8085` reaches MailDev directly (host → container).
+- nginx connects over the Docker network by hostname, so `proxy_pass` must point at the **internal** port:
+
+  ```nginx
+  location /maildev/ {
+      proxy_pass http://maildev:80/;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+  }
+  ```
+
+- The default MailDev web port is `1080`; if the container maps to a different one (e.g. `80`), update `proxy_pass` to match the actual internal port or upstream connections fail.
+- Do **not** add a `location ~* \.(js|css|png|jpg|jpeg|gif|ico)$` caching block: regex locations take precedence over prefix locations, so nginx would serve MailDev's assets from its own html directory and return 404 instead of proxying them.
 
 ## Usage
 
 ```bash
-docker network create shared   # one-time
+docker network create local-network   # one-time
 make build                     # build + tag the nginx image once
 make up                        # start services (nginx)
 ```
@@ -63,7 +87,7 @@ make load
 
 ## Adding a New Service
 
-1. Deploy the service separately, attached to the `shared` network
+1. Deploy the service separately, attached to the `local-network` network
 2. Add a `location` block in `nginx.conf`:
 
    ```nginx
