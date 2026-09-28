@@ -1,0 +1,120 @@
+/*
+ * eUI design tokens - curated subset for this app portal.
+ *
+ * Provenance: values copied verbatim from the official EC eUI showcase theme
+ * bundle, light/default theme `:root` (778 vars):
+ *   https://eui.ecdevops.eu/eui-showcase-ux-components-19.x/styles-SY6ZF63I.css
+ * Colours are resolved to their final values so this file stands alone.
+ * Upstream @elastic/eui ships no compiled CSS (Emotion-only since v122).
+ *
+ * --eui-f-size-base is 16px = eUI "normal" mode. Drop it to 14px for "compact"
+ * mode. eUI derives every rem-based token from this value, so it scales the
+ * whole spacing and type scale (compact = 0.875) - it is the intended knob,
+ * so do NOT re-add `!important` font overrides in style.css.
+ *
+ * Dark / DS2025 themes are not vendored; they redefine the same token names.
+ */
+
+:root {
+  --eui-f-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --eui-f-family-monospace: "Consolas", "Liberation Mono", "Courier New", monospace;
+  --eui-f-size-base: 16px;
+
+  --eui-f-size-xs: 0.75rem;
+  --eui-f-size-s: 0.875rem;
+  --eui-f-size-m: 1rem;
+  --eui-f-size-l: 1.25rem;
+  --eui-f-size-xl: 1.5rem;
+  --eui-f-size-2xl: 1.75rem;
+  --eui-f-size-3xl: 2rem;
+
+  --eui-f-line-height-s: 1.25rem;
+  --eui-f-line-height-m: 1.5rem;
+  --eui-f-line-height-l: 1.75rem;
+  --eui-f-line-height-xl: 2.25rem;
+  --eui-f-line-height-2xl: 2.5rem;
+  --eui-f-line-height-3xl: 2.75rem;
+
+  --eui-f-weight-regular: 400;
+  --eui-f-weight-medium: 400;
+  --eui-f-weight-semi-bold: 700;
+  --eui-f-weight-bold: 700;
+
+  --eui-f-s: normal normal 400 var(--eui-f-size-s)/var(--eui-f-line-height-s) var(--eui-f-family);
+  --eui-f-m: normal normal 400 var(--eui-f-size-m)/var(--eui-f-line-height-m) var(--eui-f-family);
+  --eui-f-l: normal normal 400 var(--eui-f-size-l)/var(--eui-f-line-height-l) var(--eui-f-family);
+  --eui-f-xl: normal normal 400 var(--eui-f-size-xl)/var(--eui-f-line-height-xl) var(--eui-f-family);
+  --eui-f-2xl: normal normal 400 var(--eui-f-size-2xl)/var(--eui-f-line-height-2xl) var(--eui-f-family);
+  --eui-f-3xl: normal normal 400 var(--eui-f-size-3xl)/var(--eui-f-line-height-3xl) var(--eui-f-family);
+  --eui-f-s-bold: normal normal 700 var(--eui-f-size-s)/var(--eui-f-line-height-s) var(--eui-f-family);
+  --eui-f-l-bold: normal normal 700 var(--eui-f-size-l)/var(--eui-f-line-height-l) var(--eui-f-family);
+  --eui-f-m-bold: normal normal 700 var(--eui-f-size-m)/var(--eui-f-line-height-m) var(--eui-f-family);
+
+  --eui-c-white: #fff;
+  --eui-c-black: #131313;
+  --eui-c-text: #303030;
+  --eui-c-text-light: #595959;
+  --eui-c-text-lighter: #838383;
+  --eui-c-link: #3860ed;
+
+  --eui-c-surface-page: #fcfcfc;
+  --eui-c-surface-container: #fff;
+  --eui-c-divider: #d6d6d6;
+  --eui-c-divider-light: #eaeaea;
+
+  --eui-c-hover: #f3f6fa;
+  --eui-c-focus: #d8e0fb;
+
+  --eui-c-branding: #004494;
+  --eui-c-branding-contrast: #fff;
+  --eui-c-branding-dark: #003676;
+  --eui-c-branding-light: #0057bd;
+
+  --eui-c-primary: #3860ed;
+  --eui-c-primary-contrast: #fff;
+  --eui-c-primary-dark: #2651eb;
+  --eui-c-primary-darker: #0f2fa2;
+  --eui-c-primary-light: #5577f0;
+  --eui-c-primary-lighter: #b1c0f8;
+  --eui-c-primary-bg: #ebf3fd;
+  --eui-c-primary-bg-light: #f3f6fa;
+
+  --eui-c-s-primary: #2651eb;
+  --eui-c-s-primary-surface: #3860ed;
+  --eui-c-s-primary-surface-contrast: #fff;
+  --eui-c-s-primary-on-surface-light: #0f2fa2;
+  --eui-c-s-primary-border: #5577f0;
+  --eui-c-s-primary-border-light: #b1c0f8;
+
+  --eui-s-2xs: 0.25rem;
+  --eui-s-xs: 0.5rem;
+  --eui-s-s: 0.75rem;
+  --eui-s-m: 1rem;
+  --eui-s-l: 1.25rem;
+  --eui-s-xl: 1.5rem;
+  --eui-s-2xl: 2rem;
+  --eui-s-3xl: 2.5rem;
+
+  --eui-br-s: 2px;
+  --eui-br-m: 4px;
+  --eui-br-l: 6px;
+  --eui-br-xl: 8px;
+  --eui-br-max: 999px;
+
+  --eui-bw-xs: 1px;
+  --eui-bw-s: 2px;
+  --eui-bw-m: 4px;
+
+  --eui-sh-1: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  --eui-sh-2: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  --eui-sh-4: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  --eui-sh-6: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+
+  --eui-is-m: 1.5rem;
+  --eui-is-l: 2rem;
+  --eui-is-2xl: 3rem;
+  --eui-is-3xl: 3.5rem;
+  --eui-is-4xl: 4rem;
+
+  --eui-zi-header: 10;
+}

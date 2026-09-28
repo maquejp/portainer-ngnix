@@ -3,23 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome</title>
+    <title>Applications &ndash; Hadea &middot; DOAPP</title>
+    <link rel="stylesheet" href="eui-tokens.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="page">
-      <header class="brand-bar">
-        <span class="brand-eu">European Commission - Hadea</span>
-        <span class="brand-name">DOAPP</span>
-      </header>
-      <main class="card">
-        <h1>Welcome</h1>
-        <p class="lede">Select an application to get started.</p>
-        <nav class="actions" aria-label="Applications">
-          <a class="btn btn-secondary" href="/maildev/">MailDev</a>
-          <a class="btn btn-primary" href="/smart/">Smart</a>
+    <header class="appheader">
+      <img
+        class="appheader__logo"
+        src="logo-ec-horizontal-mute-white.svg"
+        alt="European Commission"
+      />
+      <span class="appheader__unit"
+        >Applications &ndash; Hadea &middot; DOAPP</span
+      >
+    </header>
+
+    <main class="appmain">
+      <div class="appmain__inner">
+        <h1 class="apptitle">Applications</h1>
+        <p class="appsubtitle">Select an application to get started.</p>
+
+        <nav class="appgrid" aria-label="Applications">
+          <a class="appcard" href="/maildev/">
+            <span class="appcard__badge" aria-hidden="true">M</span>
+            <span class="appcard__body">
+              <span class="appcard__name">MailDev</span>
+              <span class="appcard__path">/maildev/</span>
+            </span>
+          </a>
+
+          <a class="appcard" href="/smart-test/">
+            <span class="appcard__badge" aria-hidden="true">S</span>
+            <span class="appcard__body">
+              <span class="appcard__name">Smart (Test)</span>
+              <span class="appcard__path">/smart-test/</span>
+            </span>
+          </a>
         </nav>
-      </main>
-    </div>
+      </div>
+    </main>
   </body>
 </html>
