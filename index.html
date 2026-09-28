@@ -1,30 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome</title>
-    <style>
-        body {
-            font-family: system-ui, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: #1e1e2e;
-            color: #cdd6f4;
-        }
-        a { color: #89b4fa; }
-    </style>
-</head>
-<body>
-    <div>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="brand-bar">
+        <span class="brand-eu">European Commission - Hadea</span>
+        <span class="brand-name">DOAPP</span>
+      </header>
+      <main class="card">
         <h1>Welcome</h1>
-        <ul>
-            <li><a href="/maildev/">MailDev</a></li>
-            <li><a href="/smart/">Smart</a></li>
-        </ul>
+        <p class="lede">Select an application to get started.</p>
+        <nav class="actions" aria-label="Applications">
+          <a class="btn btn-secondary" href="/maildev/">MailDev</a>
+          <a class="btn btn-primary" href="/smart/">Smart</a>
+        </nav>
+      </main>
     </div>
-</body>
+  </body>
 </html>
