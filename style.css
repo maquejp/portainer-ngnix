@@ -82,6 +82,9 @@ body {
 }
 
 .appcard {
+  --appcard-accent: var(--eui-c-primary);
+  --appcard-accent-dark: var(--eui-c-primary-dark);
+  --appcard-on-accent: var(--eui-c-primary-contrast);
   align-items: center;
   background-color: var(--eui-c-surface-container);
   border: var(--eui-bw-xs) solid var(--eui-c-divider-light);
@@ -94,6 +97,30 @@ body {
   text-decoration: none;
   transition: box-shadow 0.15s ease, border-color 0.15s ease,
     transform 0.15s ease;
+}
+
+.appcard--secondary {
+  --appcard-accent: var(--eui-c-secondary);
+  --appcard-accent-dark: var(--eui-c-secondary-dark);
+  --appcard-on-accent: var(--eui-c-secondary-contrast);
+}
+
+.appcard--dark {
+  --appcard-accent: var(--eui-c-dark);
+  --appcard-accent-dark: var(--eui-c-black);
+  --appcard-on-accent: var(--eui-c-dark-contrast);
+}
+
+.appcard--success {
+  --appcard-accent: var(--eui-c-success);
+  --appcard-accent-dark: var(--eui-c-success-dark);
+  --appcard-on-accent: var(--eui-c-success-contrast);
+}
+
+.appcard--neutral {
+  --appcard-accent: var(--eui-c-neutral);
+  --appcard-accent-dark: var(--eui-c-neutral-darker);
+  --appcard-on-accent: var(--eui-c-neutral-contrast);
 }
 
 .appcard:hover {
@@ -113,11 +140,11 @@ body {
   align-items: center;
   background: linear-gradient(
     180deg,
-    var(--eui-c-primary) 0%,
-    var(--eui-c-primary-dark) 100%
+    var(--appcard-accent) 0%,
+    var(--appcard-accent-dark) 100%
   );
   border-radius: var(--eui-br-m);
-  color: var(--eui-c-primary-contrast);
+  color: var(--appcard-on-accent);
   display: flex;
   flex-shrink: 0;
   font: var(--eui-f-l-bold);

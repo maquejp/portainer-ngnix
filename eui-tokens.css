@@ -4,8 +4,23 @@
  * Provenance: values copied verbatim from the official EC eUI showcase theme
  * bundle, light/default theme `:root` (778 vars):
  *   https://eui.ecdevops.eu/eui-showcase-ux-components-19.x/styles-SY6ZF63I.css
+ * Underneath, eUI here maps ECL v5 (European Commission Language) tokens -
+ * the primary/branding/surface values match ECL v5 exactly:
+ *   https://ec.europa.eu/component-library/ec/guidelines/colours
  * Colours are resolved to their final values so this file stands alone.
  * Upstream @elastic/eui ships no compiled CSS (Emotion-only since v122).
+ *
+ * The ECL v5 *main* colours (primary / secondary / dark / neutral) are the
+ * sanctioned accents for chrome. This file also vendors ONE step of the
+ * success ramp (--eui-c-success) for the Smart prod badge, which is a
+ * deliberate exception: ECL reserves green for status, so nothing else on
+ * the page may treat it as decorative. The remaining status colours
+ * (warning #f39811, error #da1e28) are NOT vendored at all.
+ *
+ * Every solid fill ships a `-contrast` (on-colour) token, because white text
+ * is not universally safe: secondary #ffbe5c, neutral #b9c5e9 and success
+ * #a3bd9c are light enough that white on them lands around 1.6-1.7:1, so they
+ * pair with --eui-c-black instead. Never hardcode #fff for a new accent.
  *
  * --eui-f-size-base is 16px = eUI "normal" mode. Drop it to 14px for "compact"
  * mode. eUI derives every rem-based token from this value, so it scales the
@@ -78,6 +93,21 @@
   --eui-c-primary-lighter: #b1c0f8;
   --eui-c-primary-bg: #ebf3fd;
   --eui-c-primary-bg-light: #f3f6fa;
+
+  --eui-c-secondary: #ffbe5c;
+  --eui-c-secondary-contrast: #131313;
+  --eui-c-secondary-dark: #ff9d0a;
+
+  --eui-c-dark: #26324b;
+  --eui-c-dark-contrast: #fff;
+
+  --eui-c-neutral: #b9c5e9;
+  --eui-c-neutral-contrast: #131313;
+  --eui-c-neutral-darker: #92a5dd;
+
+  --eui-c-success: #a3bd9c;
+  --eui-c-success-contrast: #131313;
+  --eui-c-success-dark: #5d7d55;
 
   --eui-c-s-primary: #2651eb;
   --eui-c-s-primary-surface: #3860ed;
